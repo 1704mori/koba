@@ -1,6 +1,6 @@
 import BaseCommand from "../abstracts/BaseCommand";
 import Bot from "../bot";
-import { Message } from "discord.js";
+import { Message, TextChannel } from "discord.js";
 
 export default class SayCommand extends BaseCommand {
   constructor() {
@@ -8,9 +8,17 @@ export default class SayCommand extends BaseCommand {
   }
 
   async execute(client: Bot, message: Message, args: string[]): Promise<void> {
-    const say = args.join(" ");
-    message.channel.send(say);
+    const channelId = args[0] && args[0].replace(/\D/g, "");
+
+    if (channelId) {
+      const channel = client.channels.cache.get(channelId) as TextChannel;
+      channel.send(args[1]);
+      message.delete();
+
+      return;
+    }
+
+    message.channel.send(args[0]);
     message.delete();
-    return;
   }
 }
