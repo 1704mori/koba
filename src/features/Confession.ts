@@ -123,18 +123,21 @@ export default class Confession {
         .addField("Message", `${this.messageToSend[message.author.id].messageToSend}`)
         .setTimestamp();
 
+      this.reset(message);
+
       channel.send(embed);
+   
       if (logChannel) {
         logChannel.send(logEmbed);
       }
 
-      this.reset(message);
-
       this.lastMessage.add(message.author.id);
+      message.author.send("`Confession sent`");
     }
 
     setTimeout(() => {
       this.lastMessage.delete(message.author.id);
+      this.reset(message);
     }, 300000);
   }
 }
