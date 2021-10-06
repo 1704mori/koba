@@ -73,7 +73,7 @@ export default class SauceCommand extends BaseCommand {
     }
 
     const { data } = await axios.get<SauceNaoResponse>(
-      `https://saucenao.com/search.php?db=999&output_type=2&testmode=1&numres=16&url=${file}&api_key=ce79d3ceafecbc127d71c0ff56102c03a6eae3ab`
+      `https://saucenao.com/search.php?db=999&output_type=2&testmode=1&numres=16&url=${file}&api_key=SAUCENAO_API_KEY`
     );
 
     const sauce = data.results[0]; // sauce with higher similarity
