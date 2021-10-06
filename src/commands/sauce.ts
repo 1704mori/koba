@@ -72,8 +72,13 @@ export default class SauceCommand extends BaseCommand {
       return;
     }
 
+    if (!["png", "jpg", "jpeg"].includes(file.split(".").pop())) {
+      message.channel.send("`Oops, the mentioned message is not an image.`");
+      return;
+    }
+
     const { data } = await axios.get<SauceNaoResponse>(
-      `https://saucenao.com/search.php?db=999&output_type=2&testmode=1&numres=16&url=${file}&api_key=SAUCENAO_API_KEY`
+      `https://saucenao.com/search.php?db=999&output_type=2&testmode=1&numres=16&url=${file}&api_key=61302c7fcbae099049f4f6f59fe38fb4b57946e3`
     );
 
     const sauce = data.results[0]; // sauce with higher similarity
@@ -91,7 +96,7 @@ export default class SauceCommand extends BaseCommand {
         `https://www.pixiv.net/member_illust.php?mode=medium&illust_id=${sauce.data.pixiv_id}`;
 
     const embedSauce = new MessageEmbed()
-      .setColor('#ff6781')
+      .setColor("#ff6781")
       .setTitle("Sauce Result")
       .addField("Similarity", sauce.header.similarity)
       .addField("Source", sauce.data.source || sauce.data.title || sauce.data.material || "Unknown");
