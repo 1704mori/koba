@@ -51,6 +51,8 @@ interface SauceNaoResponse {
   results: SauceNaoResults[];
 }
 
+const IMAGES_EXT = ["png", "jpg", "jpeg"];
+
 export default class SauceCommand extends BaseCommand {
   constructor() {
     super("sauce", "misc", [], false);
@@ -72,13 +74,13 @@ export default class SauceCommand extends BaseCommand {
       return;
     }
 
-    if (!["png", "jpg", "jpeg"].includes(file.split(".").pop())) {
+    if (!IMAGES_EXT.includes(file.split(".").pop())) {
       message.channel.send("`Oops, the mentioned message is not an image.`");
       return;
     }
 
     const { data } = await axios.get<SauceNaoResponse>(
-      `https://saucenao.com/search.php?db=999&output_type=2&testmode=1&numres=16&url=${file}&api_key=SAUCENAO_API_KEY`
+      `https://saucenao.com/search.php?db=999&output_type=2&testmode=1&numres=16&url=${file}&api_key=3394879ca37b8a979405e04ce04364eface8e461`
     );
 
     const sauce = data.results[0]; // sauce with higher similarity
