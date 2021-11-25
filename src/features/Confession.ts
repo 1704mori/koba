@@ -96,10 +96,10 @@ export default class Confession {
       !this.lastMessage.has(message.author.id)
     ) {
       const selectedGuild = bot.guilds.cache.get(this.guilds[message.author.id][message.content].guildId);
-      const guildData = await bot.utilFunctions.getGuild(selectedGuild);
+      const guildData = await bot.dbFunctions.getGuild(selectedGuild);
 
-      const channel = bot.channels.cache.get(guildData.confessionChannel) as Discord.TextChannel;
-      const logChannel = bot.channels.cache.get(guildData.confessionLogChannel) as Discord.TextChannel;
+      const channel = bot.channels.cache.get(guildData.confession_channel) as Discord.TextChannel;
+      const logChannel = bot.channels.cache.get(guildData.confession_log_channel) as Discord.TextChannel;
 
       if (this.messageToSend[message.author.id].messageToSend.length <= 5) {
         message.author.send("Confession too short.");
@@ -125,10 +125,14 @@ export default class Confession {
 
       this.reset(message);
 
-      channel.send(embed);
-   
+      channel.send({
+        embeds: [embed],
+      });
+
       if (logChannel) {
-        logChannel.send(logEmbed);
+        logChannel.send({
+          embeds: [logEmbed],
+        });
       }
 
       this.lastMessage.add(message.author.id);

@@ -10,7 +10,7 @@ export default class SetCommand extends BaseCommand {
   async execute(bot: Bot, message: Message, args: string[]): Promise<void> {
     const [set, type, channel] = args;
 
-    const guild = await bot.utilFunctions.getGuild(message.guild);
+    const guild = await bot.dbFunctions.getGuild(message.guild);
     const sets = ["confession", "log"];
     const types = ["confession = channel", "log = general | confession"];
 
@@ -23,8 +23,8 @@ export default class SetCommand extends BaseCommand {
 
     if (set === "confession") {
       const data: any = {};
-      bot.utilFunctions.updateGuild(message.guild, data);
-      data[`${set}Channel`] = channel.replace(/\D/g, "");
+      bot.dbFunctions.updateGuild(message.guild, data);
+      data[`${set}_channel`] = channel.replace(/\D/g, "");
       const channelId = channel.replace(/\D/g, "");
 
       message.channel.send(`**Confessions will now be sent to** <#${channelId}>`);
@@ -32,9 +32,9 @@ export default class SetCommand extends BaseCommand {
 
     if (set === "log") {
       const data: any = {};
-      bot.utilFunctions.updateGuild(message.guild, data);
-      console.log(`${type}LogChannel`)
-      data[`${type}LogChannel`] = channel.replace(/\D/g, "");
+      bot.dbFunctions.updateGuild(message.guild, data);
+      console.log(`${type}_log_channel`)
+      data[`${type}_log_channel`] = channel.replace(/\D/g, "");
       const channelId = channel.replace(/\D/g, "");
 
       message.channel.send(`**${type} log will now be sent to** <#${channelId}>`);

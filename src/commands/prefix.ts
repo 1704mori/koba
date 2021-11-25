@@ -16,7 +16,7 @@ export default class PrefixCommand extends BaseCommand {
     }
 
     try {
-      await client.utilFunctions.updateGuild(message.guild, {
+      await client.dbFunctions.updateGuild(message.guild, {
         prefix: prefix[0],
       });
       message.channel.send(`Prefix successfully updated to **${prefix[0]}**`);

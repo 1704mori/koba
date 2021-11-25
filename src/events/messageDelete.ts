@@ -12,13 +12,13 @@ export default class MessageDelete extends BaseEvent {
       return;
     }
 
-    const { generalLogChannel } = await bot.utilFunctions.getGuild(message.guild);
+    const { general_log_channel } = await bot.dbFunctions.getGuild(message.guild);
 
-    if (!generalLogChannel) {
+    if (!general_log_channel) {
       return;
     }
 
-    const logChannel = bot.channels.cache.get(generalLogChannel) as Discord.TextChannel;
+    const logChannel = bot.channels.cache.get(general_log_channel) as Discord.TextChannel;
 
     const messageHadAttachment = message.attachments.first();
 
@@ -36,6 +36,8 @@ export default class MessageDelete extends BaseEvent {
     logEmbed.addField("Channel", `${message.channel} (${message.channel.id})`);
     logEmbed.setFooter(`Auhtor: ${message.author.id} | ID da Mensagem: ${message.id}`).setTimestamp();
 
-    logChannel.send(logEmbed);
+    logChannel.send({
+      embeds: [logEmbed],
+    });
   }
 }

@@ -16,13 +16,13 @@ export default class MessageUpdate extends BaseEvent {
       return;
     }
 
-    const { generalLogChannel } = await bot.utilFunctions.getGuild(newMessage.guild);
+    const { general_log_channel } = await bot.dbFunctions.getGuild(newMessage.guild);
 
-    if (!generalLogChannel) {
+    if (!general_log_channel) {
       return;
     }
 
-    const logChannel = bot.channels.cache.get(generalLogChannel) as TextChannel;
+    const logChannel = bot.channels.cache.get(general_log_channel) as TextChannel;
 
     const messageHadAttachment = newMessage.attachments.first();
 
@@ -38,6 +38,8 @@ export default class MessageUpdate extends BaseEvent {
 
     if (messageHadAttachment) logEmbed.setImage(messageHadAttachment.proxyURL);
 
-    logChannel.send(logEmbed);
+    logChannel.send({
+      embeds: [logEmbed],
+    });
   }
 }

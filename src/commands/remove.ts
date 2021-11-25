@@ -10,7 +10,7 @@ export default class RemoveCommand extends BaseCommand {
   async execute(bot: Bot, message: Message, args: string[]): Promise<void> {
     const [set] = args;
 
-    const guild = await bot.utilFunctions.getGuild(message.guild);
+    const guild = await bot.dbFunctions.getGuild(message.guild);
     const sets = ["confession", "log"];
 
     if (!set || !sets.includes(set)) {
@@ -19,15 +19,17 @@ export default class RemoveCommand extends BaseCommand {
     }
 
     if (set === "confession") {
-      guild.confessionChannel = undefined;
-      guild.save();
+      await bot.dbFunctions.updateGuild(message.guild, {
+        confessionChannel: undefined,
+      });
 
       message.channel.send(`**Confessions channel removed**`);
     }
 
     if (set === "log") {
-      guild.generalLogChannel = undefined;
-      guild.save();
+      await bot.dbFunctions.updateGuild(message.guild, {
+        generalLogChannel: undefined,
+      });
 
       message.channel.send(`**Messages log removed**`);
     }

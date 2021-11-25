@@ -61,7 +61,7 @@ export default class SauceCommand extends BaseCommand {
   async execute(bot: Bot, message: Message): Promise<void> {
     if (!Object.keys(message.mentions.users).length && !message.reference) return;
 
-    const messageId = message.reference.messageID;
+    const messageId = message.reference.messageId;
 
     const mentionedMessage = await message.channel.messages.fetch(messageId);
 
@@ -110,6 +110,8 @@ export default class SauceCommand extends BaseCommand {
       embedSauce.setImage(sauce.header.thumbnail);
     }
 
-    message.channel.send(embedSauce);
+    message.channel.send({
+      embeds: [embedSauce],
+    });
   }
 }

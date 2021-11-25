@@ -16,7 +16,7 @@ export default class MessageCreate extends BaseEvent {
 
     if (message.author.bot) return;
 
-    const guildData = await bot.utilFunctions.getGuild(message.guild);
+    const guildData = await bot.dbFunctions.getGuild(message.guild);
     if (message.content.indexOf(guildData.prefix) !== 0) return;
 
     // remove the comment below in case you need the bot to only work in a specific channel
