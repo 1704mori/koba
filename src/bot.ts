@@ -1,7 +1,7 @@
 import BaseCommand from "./abstracts/BaseCommand";
 import BaseEvent from "./abstracts/BaseEvent";
-import { UtilFunctions } from "./utils/UtilFunctions";
 import { Client, Collection, Intents } from "discord.js";
+import { DBFunctions } from "./utils/DBFunctions";
 
 export default class Bot extends Client {
   private static instance: Bot;
@@ -11,7 +11,7 @@ export default class Bot extends Client {
 
   private _events = new Collection<string, BaseEvent>();
   private _commands = new Collection<string, BaseCommand>();
-  private _utilFunctions = new UtilFunctions();
+  private _dbFunctions = new DBFunctions();
 
   get events(): Collection<string, BaseEvent> {
     return this._events;
@@ -21,8 +21,8 @@ export default class Bot extends Client {
     return this._commands;
   }
 
-  get utilFunctions(): UtilFunctions {
-    return this._utilFunctions;
+  get dbFunctions(): DBFunctions {
+    return this._dbFunctions;
   }
 
   static getInstance(): Bot {
