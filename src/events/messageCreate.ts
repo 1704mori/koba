@@ -3,13 +3,13 @@ import Bot from "../bot";
 import Discord from "discord.js";
 import Confession from "../features/Confession";
 
-export default class Message extends BaseEvent {
+export default class MessageCreate extends BaseEvent {
   constructor() {
-    super("message");
+    super("messageCreate");
   }
 
   async execute(bot: Bot, message: Discord.Message) {
-    if (message.channel.type == "dm") {
+    if (message.channel.type == "DM") {
       Confession.execute(bot, message);
       return
     }

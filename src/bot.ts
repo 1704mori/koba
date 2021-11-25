@@ -1,11 +1,13 @@
 import BaseCommand from "./abstracts/BaseCommand";
 import BaseEvent from "./abstracts/BaseEvent";
 import { UtilFunctions } from "./utils/UtilFunctions";
-import { Client, Collection } from "discord.js";
+import { Client, Collection, Intents } from "discord.js";
 
 export default class Bot extends Client {
   private static instance: Bot;
-  public client: Client = new Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"] });
+  public client: Client = new Client({
+    intents: [Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILDS],
+  });
 
   private _events = new Collection<string, BaseEvent>();
   private _commands = new Collection<string, BaseCommand>();
@@ -25,7 +27,9 @@ export default class Bot extends Client {
 
   static getInstance(): Bot {
     if (!Bot.instance) {
-      Bot.instance = new Bot();
+      Bot.instance = new Bot({
+        intents: [Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILDS],
+      });
     }
 
     return Bot.instance;
