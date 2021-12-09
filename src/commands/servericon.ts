@@ -2,12 +2,12 @@ import BaseCommand from "../abstracts/BaseCommand";
 import Bot from "../bot";
 import { ImageURLOptions, Message } from "discord.js";
 
-export default class PingCommand extends BaseCommand {
+export default class ServerIcon extends BaseCommand {
   constructor() {
-    super("ping", "misc", [], true, "Pingを確認します。", "");
+    super("servericon", "misc", [], true, "Shows server's current icon", "");
   }
 
   async execute(bot: Bot, message: Message, args: string[]): Promise<void> {
-    message.channel.send(`Ping値は${bot.ws.ping}msです。`);
+    message.channel.send(message.guild.iconURL({ dynamic: true, size: 2048 }));
   }
 }

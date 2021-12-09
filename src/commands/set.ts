@@ -4,7 +4,7 @@ import { Message } from "discord.js";
 
 export default class SetCommand extends BaseCommand {
   constructor() {
-    super("set", "moderation", [], true);
+    super("set", "moderation", [], true, "Set a channel for a type of log", "<confession|log> [general] <channel>");
   }
 
   async execute(bot: Bot, message: Message, args: string[]): Promise<void> {

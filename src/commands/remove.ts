@@ -4,7 +4,7 @@ import { Message } from "discord.js";
 
 export default class RemoveCommand extends BaseCommand {
   constructor() {
-    super("remove", "moderation", [], true);
+    super("remove", "moderation", [], true, "Remove a channel from the database", "<confession | log>");
   }
 
   async execute(bot: Bot, message: Message, args: string[]): Promise<void> {

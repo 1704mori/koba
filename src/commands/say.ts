@@ -4,7 +4,7 @@ import { Message, TextChannel } from "discord.js";
 
 export default class SayCommand extends BaseCommand {
   constructor() {
-    super("say", "moderation", [], true);
+    super("say", "moderation", [], true, "Say something in a channel", "<message> [channel]");
   }
 
   async execute(client: Bot, message: Message, args: string[]): Promise<void> {

@@ -55,7 +55,7 @@ const IMAGES_EXT = ["png", "jpg", "jpeg"];
 
 export default class SauceCommand extends BaseCommand {
   constructor() {
-    super("sauce", "misc", [], false);
+    super("sauce", "misc", [], false, "Sauce a mentioned image", "");
   }
 
   async execute(bot: Bot, message: Message): Promise<void> {

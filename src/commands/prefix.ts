@@ -4,7 +4,7 @@ import { Message } from "discord.js";
 
 export default class PrefixCommand extends BaseCommand {
   constructor() {
-    super("prefix", "moderation", [], true);
+    super("prefix", "moderation", [], true, "Change the prefix of the bot", "<prefix>");
   }
 
   async execute(client: Bot, message: Message, args: string[]): Promise<void> {

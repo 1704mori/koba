@@ -4,7 +4,7 @@ import { ImageURLOptions, Message } from "discord.js";
 
 export default class AvatarCommand extends BaseCommand {
   constructor() {
-    super("avatar", "misc", [], true);
+    super("avatar", "misc", [], true, "Shows the avatar of a specified user", "[user] [original]");
   }
 
   async execute(bot: Bot, message: Message, args: string[]): Promise<void> {
