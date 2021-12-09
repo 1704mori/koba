@@ -6,8 +6,11 @@ export default abstract class BaseCommand {
     private name: string,
     private category: string,
     private aliases: Array<string>,
-    private hasArgs: boolean
-  ) {}
+    private hasArgs: boolean,
+    private description: string,
+    private usage: string,
+  )
+   {}
 
   getName(): string {
     return this.name;
@@ -20,6 +23,12 @@ export default abstract class BaseCommand {
   }
   getArgs(): boolean {
     return this.hasArgs;
+  }
+  getDescription(): string {
+    return this.description;
+  }
+  getUsage(): string {
+    return this.usage;
   }
 
   abstract execute(bot: Bot, message: Message, args: Array<string> | null): Promise<void>;
